@@ -1,11 +1,3 @@
-
-/*COP3502C:   Assignment 2*/
-/*This program is written by: Braedon Watkins*/
-
-/*================================================================================================*/
-
-
-
 #define _CRT_SECURE_NO_WARNINGS
 #define GROUNDSIZE 10
 #include <stdio.h>
