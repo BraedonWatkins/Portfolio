@@ -1,5 +1,3 @@
-# Portfolio
-
 ## C
 ### CS1
 These are projects I worked on in my data structures class. 
