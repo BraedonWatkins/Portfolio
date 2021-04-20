@@ -1,6 +1,6 @@
 ## C
 ### CS1
-These are projects I worked on in my data structures class. 
+These are projects I worked on in my data structures and algorithms class. 
 
 The two I have displayed are projects working on Queues and Tries respectively.
 In the projects we worked to manipulate the data in these structures: flipping, modifying, and destroying data.
