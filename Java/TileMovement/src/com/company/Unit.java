@@ -1,9 +1,11 @@
 package com.company;
 
-public class Unit
+public class Unit extends Tile
 {
-    int column;
-    int row;
-    int moveSpeed;
-    //List of tiles passable || impassable for this unit type
+    Unit()
+    {
+        leftoverSpeed = 12;
+        moveCost = 0;
+        passible = true;
+    }
 }

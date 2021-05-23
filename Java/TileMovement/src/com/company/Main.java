@@ -2,15 +2,6 @@ package com.company;
 import java.util.*;
 
 
-/*GENERAL NOTES:
- * 	- May want to look into some helper functions such as:
- * 		- Queue class + functions for processing recursive calls in BFS
- * 		- Menu function to move through other functions
- * 		- Delete / Reset functions to run multiple iterations
- *
- */
-
-
 /*MAIN NOTES:
  *	- Change scanner to call from main
  *	- Review possible use of keywords
@@ -87,23 +78,23 @@ public class Main{
          */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if (i - 1 >= 0)
-                    tileMap[i][j].up = tileMap[i - 1][j];
+                if (j - 1 >= 0)
+                    tileMap[i][j].up = tileMap[i][j-1];
                 else
                     tileMap[i][j].up = null;
 
-                if (j - 1 >= 0)
-                    tileMap[i][j].left = tileMap[i][j - 1];
+                if (i - 1 >= 0)
+                    tileMap[i][j].left = tileMap[i-1][j];
                 else
                     tileMap[i][j].left = null;
 
-                if (j + 1 < columns)
-                    tileMap[i][j].right = tileMap[i][j + 1];
+                if (i + 1 < rows)
+                    tileMap[i][j].right = tileMap[i+1][j];
                 else
                     tileMap[i][j].right = null;
 
-                if (i + 1 < rows)
-                    tileMap[i][j].down = tileMap[i + 1][j];
+                if (j + 1 < columns)
+                    tileMap[i][j].down = tileMap[i][j+1];
                 else
                     tileMap[i][j].down = null;
 
@@ -124,12 +115,14 @@ public class Main{
         //Give player to a random location + assign move speed
         player.row = rand.nextInt(tileMap.length);
         player.column = rand.nextInt(tileMap[0].length);
-        player.moveSpeed = 12;
-
 
         //Reflect the players presence in the map
-        tileMap[player.row][player.column].hasUnit = true;
-        tileMap[player.row][player.column].moveCost = 0;
+        player.up = tileMap[player.row][player.column].up;
+        player.left = tileMap[player.row][player.column].left;
+        player.down = tileMap[player.row][player.column].down;
+        player.right = tileMap[player.row][player.column].right;
+
+        tileMap[player.row][player.column] =  player;
 
         return player;
     }
@@ -153,7 +146,7 @@ public class Main{
                     {
                         for(int j = 0; j < columns; j++)
                         {
-                            if(tileMap[i][j].hasUnit)
+                            if(tileMap[i][j] instanceof Unit)
                             {
                                 System.out.print(" P ");
                                 continue;
@@ -199,15 +192,16 @@ public class Main{
         {
             for(int j = 0; j < columns; j++)
             {
-                if(tileMap[i][j].hasUnit)
+                if(tileMap[i][j] instanceof Unit)
                 {
                     System.out.print(" P ");
                     continue;
                 }
                 if(!tileMap[i][j].passible)
                     System.out.print(" x ");
-                else if(tileMap[i][j].leftoverSpeed < 0)
+                else if(tileMap[i][j].leftoverSpeed < 0) {
                     System.out.print(" X ");
+                }
                 else
                     System.out.print(" " + tileMap[i][j].leftoverSpeed + " ");
             }
@@ -227,7 +221,6 @@ public class Main{
         ArrayList<Tile> searched = new ArrayList<>();
 
         searching.add(tileMap[player.row][player.column]);
-        searching.get(0).leftoverSpeed = player.moveSpeed;
 
         return bfsRecurse(tileMap, searching, searched);
     }
